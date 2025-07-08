@@ -236,3 +236,10 @@ const customPath = getEmojiPath('微笑')?.replace('assets/', 'my-assets/');
 欢迎提交 Issue 和 Pull Request 来改进项目。
 
 # wechat-emojis
+
+# 请我喝杯茶 | buy me a cup of tea
+
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <img src="public/images/alipay.png" alt="支付宝" width="300" />
+  <img src="public/images/wechat.png" alt="微信" width="300" />
+</div>
