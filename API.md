@@ -6,7 +6,29 @@
 
 ## 安装和使用
 
-### 1. 直接使用 TypeScript
+### 1. 通过 NPM 安装（推荐）
+
+```bash
+# 安装包
+npm install wechat-emojis
+
+# 复制表情资源到项目的 public 目录（重要）
+mkdir -p public/assets
+cp -r node_modules/wechat-emojis/assets/* public/assets/
+```
+
+使用 NPM 包：
+
+```typescript
+import WeChatEmojis, {
+  EmojiCategory,
+  getEmojiPath,
+  getEmojisByCategory,
+  searchEmojis
+} from 'wechat-emojis';
+```
+
+### 2. 直接使用 TypeScript 源文件
 
 ```typescript
 import WeChatEmojis, {
@@ -17,7 +39,7 @@ import WeChatEmojis, {
 } from './wechatEmoji';
 ```
 
-### 2. 编译后使用 JavaScript
+### 3. 编译后使用 JavaScript
 
 ```bash
 # 编译 TypeScript
@@ -140,7 +162,7 @@ const randomFaceEmoji = getRandomEmoji(EmojiCategory.FACE);
 
 ```typescript
 import React from 'react';
-import { getEmojiPath, getEmojisByCategory, EmojiCategory } from './wechatEmoji';
+import { getEmojiPath, getEmojisByCategory, EmojiCategory } from 'wechat-emojis';
 
 const EmojiPicker: React.FC = () => {
   const faceEmojis = getEmojisByCategory(EmojiCategory.FACE);
@@ -179,7 +201,7 @@ const EmojiPicker: React.FC = () => {
 </template>
 
 <script setup lang="ts">
-import { getEmojisByCategory, getEmojiPath, EmojiCategory } from './wechatEmoji';
+import { getEmojisByCategory, getEmojiPath, EmojiCategory } from 'wechat-emojis';
 
 const emojis = getEmojisByCategory(EmojiCategory.FACE);
 

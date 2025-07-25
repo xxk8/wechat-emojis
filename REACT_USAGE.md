@@ -4,7 +4,53 @@
 
 ## 📦 安装和配置
 
-### 方式一：直接复制文件（推荐）
+### 方式一：使用npm包（推荐）
+
+1. **安装包**：
+
+```bash
+npm install wechat-emojis
+```
+
+2. **复制资源文件**：
+由于npm包中的图片资源需要被复制到你的项目public目录，请执行以下命令：
+
+```bash
+# 复制表情资源到你的项目
+cp -r node_modules/wechat-emojis/assets/* public/assets/
+```
+
+你也可以在 `package.json` 中配置一个脚本，在安装后自动完成复制：
+
+```json
+// package.json
+{
+  "scripts": {
+    "postinstall": "cp -r node_modules/wechat-emojis/assets/* public/assets/"
+  }
+}
+```
+
+3. **在React项目中使用**：
+
+```typescript
+// 直接从npm包导入
+import {
+  getEmojiPath,
+  getEmojisByCategory,
+  EmojiCategory,
+  type EmojiName
+} from 'wechat-emojis';
+
+// 使用示例
+const WeChatEmoji: React.FC<{name: EmojiName}> = ({ name }) => {
+  const emojiPath = getEmojiPath(name);
+  // 确保你的 public 目录配置正确，可以直接访问 /assets/
+  return <img src={`/${emojiPath}`} alt={name} width={24} height={24} />;
+};
+```
+
+### 方式二：直接复制文件
 
 1. **复制必要文件到React项目**：
 ```bash
@@ -21,37 +67,21 @@ cp -r path/to/assets/* public/assets/
 ```
 
 2. **调整图片路径**（重要）：
-由于React项目中public目录的资源访问方式，需要修改图片路径：
+由于React项目中public目录的资源访问方式，需要修改 `wechatEmoji.ts` 中的图片路径，将所有 `'assets/'` 替换为 `'/assets/'`。
 
-```typescript
-// 在 src/utils/wechat-emojis/wechatEmoji.ts 中
-// 将所有 'assets/' 替换为 '/assets/'
-// 例如：'assets/face/微笑.png' → '/assets/face/微笑.png'
-```
-
-### 方式二：作为npm包使用
-
-如果你想将此模块发布为npm包：
-
-```bash
-npm install your-wechat-emojis-package
-```
 
 ## 🚀 基础使用
 
 ### 1. 导入模块
 
 ```typescript
-// TypeScript 项目
-import { 
-  getEmojiPath, 
-  getEmojisByCategory, 
+// 从 npm 包导入 (推荐)
+import {
+  getEmojiPath,
+  getEmojisByCategory,
   EmojiCategory,
-  type EmojiName 
-} from '../utils/wechat-emojis/wechatEmoji';
-
-// 或者使用默认导出
-import WeChatEmojis from '../utils/wechat-emojis/wechatEmoji';
+  type EmojiName
+} from 'wechat-emojis';
 ```
 
 ### 2. 创建表情组件
@@ -59,7 +89,7 @@ import WeChatEmojis from '../utils/wechat-emojis/wechatEmoji';
 ```tsx
 // src/components/WeChatEmoji.tsx
 import React from 'react';
-import { getEmojiPath, type EmojiName } from '../utils/wechat-emojis/wechatEmoji';
+import { getEmojiPath, type EmojiName } from 'wechat-emojis';
 
 interface WeChatEmojiProps {
   name: EmojiName;
@@ -68,14 +98,14 @@ interface WeChatEmojiProps {
   alt?: string;
 }
 
-const WeChatEmoji: React.FC<WeChatEmojiProps> = ({ 
-  name, 
-  size = 24, 
+const WeChatEmoji: React.FC<WeChatEmojiProps> = ({
+  name,
+  size = 24,
   className = '',
-  alt 
+  alt
 }) => {
   const emojiPath = getEmojiPath(name);
-  
+
   if (!emojiPath) {
     console.warn(`表情 "${name}" 不存在`);
     return null;
@@ -88,7 +118,7 @@ const WeChatEmoji: React.FC<WeChatEmojiProps> = ({
       width={size}
       height={size}
       className={`wechat-emoji ${className}`}
-      style={{ 
+      style={{
         display: 'inline-block',
         verticalAlign: 'middle'
       }}
@@ -110,13 +140,13 @@ function App() {
   return (
     <div className="App">
       <h1>微信表情示例</h1>
-      
+
       {/* 基础使用 */}
       <p>
         你好 <WeChatEmoji name="微笑" size={20} />
         今天天气真好 <WeChatEmoji name="太阳" size={20} />
       </p>
-      
+
       {/* 不同尺寸 */}
       <div>
         <WeChatEmoji name="大哭" size={16} />
@@ -137,11 +167,11 @@ export default App;
 ```tsx
 // src/components/EmojiPicker.tsx
 import React, { useState } from 'react';
-import { 
-  getEmojisByCategory, 
+import {
+  getEmojisByCategory,
   EmojiCategory,
-  type EmojiInfo 
-} from '../utils/wechat-emojis/wechatEmoji';
+  type EmojiInfo
+} from 'wechat-emojis';
 import WeChatEmoji from './WeChatEmoji';
 
 interface EmojiPickerProps {
@@ -149,7 +179,7 @@ interface EmojiPickerProps {
   categories?: EmojiCategory[];
 }
 
-const EmojiPicker: React.FC<EmojiPickerProps> = ({ 
+const EmojiPicker: React.FC<EmojiPickerProps> = ({
   onEmojiSelect,
   categories = [
     EmojiCategory.FACE,
@@ -183,7 +213,7 @@ const EmojiPicker: React.FC<EmojiPickerProps> = ({
           </button>
         ))}
       </div>
-      
+
       {/* 表情网格 */}
       <div className="emoji-grid">
         {getEmojisByCategory(activeCategory).map(emoji => (
@@ -209,7 +239,7 @@ export default EmojiPicker;
 ```tsx
 // src/components/ChatMessage.tsx
 import React from 'react';
-import { getEmojiPath, type EmojiName } from '../utils/wechat-emojis/wechatEmoji';
+import { getEmojiPath, type EmojiName } from 'wechat-emojis';
 
 interface ChatMessageProps {
   content: string;
@@ -229,11 +259,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ content, emojiSize = 20 }) =>
       if (match.index > lastIndex) {
         parts.push(text.slice(lastIndex, match.index));
       }
-      
+
       // 添加表情
       const emojiName = match[1] as EmojiName;
       const emojiPath = getEmojiPath(emojiName);
-      
+
       if (emojiPath) {
         parts.push(
           <img
@@ -242,7 +272,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ content, emojiSize = 20 }) =>
             alt={emojiName}
             width={emojiSize}
             height={emojiSize}
-            style={{ 
+            style={{
               display: 'inline-block',
               verticalAlign: 'middle',
               margin: '0 2px'
@@ -253,15 +283,15 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ content, emojiSize = 20 }) =>
         // 如果表情不存在，保留原文本
         parts.push(match[0]);
       }
-      
+
       lastIndex = match.index + match[0].length;
     }
-    
+
     // 添加剩余文本
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
-    
+
     return parts;
   };
 
@@ -303,7 +333,7 @@ const preloadEmojis = (emojiNames: EmojiName[]) => {
 const WeChatEmoji: React.FC<WeChatEmojiProps> = ({ name, size = 24, fallback }) => {
   const [hasError, setHasError] = useState(false);
   const emojiPath = getEmojiPath(name);
-  
+
   if (!emojiPath || hasError) {
     return fallback || <span>[{name}]</span>;
   }
@@ -390,11 +420,11 @@ const WeChatEmoji: React.FC<WeChatEmojiProps> = ({ name, size = 24, fallback }) 
 项目完全支持TypeScript，提供完整的类型定义：
 
 ```typescript
-import type { 
+import type {
   EmojiName,      // 所有表情名称的联合类型
   EmojiInfo,      // 表情信息接口
   EmojiCategory   // 表情分类枚举
-} from '../utils/wechat-emojis/wechatEmoji';
+} from 'wechat-emojis';
 
 // 类型安全的表情使用
 const validEmoji: EmojiName = '微笑';  // ✅ 正确
@@ -403,7 +433,7 @@ const invalidEmoji: EmojiName = '不存在'; // ❌ TypeScript 错误
 
 ## 🚨 注意事项
 
-1. **图片路径**：确保assets目录在public文件夹中，路径以`/`开头
+1. **图片路径**：确保assets目录位于public文件夹根目录，并且代码中引用的路径是正确的（例如，以 `/assets/` 开头）。
 2. **性能**：大量表情时考虑懒加载和虚拟滚动
 3. **兼容性**：确保目标浏览器支持所需的图片格式
 4. **版权**：注意表情包的使用权限和版权问题
@@ -416,7 +446,7 @@ const invalidEmoji: EmojiName = '不存在'; // ❌ TypeScript 错误
   .emoji-grid {
     grid-template-columns: repeat(6, 1fr);
   }
-  
+
   .emoji-item {
     padding: 8px;
   }
