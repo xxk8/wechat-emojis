@@ -34,7 +34,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xxk8/wechat-emojis.git"
+    "url": "git+https://github.com/xxk8/wechat-emojis.git"
   },
   "bugs": {
     "url": "https://github.com/xxk8/wechat-emojis/issues"
