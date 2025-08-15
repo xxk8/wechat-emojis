@@ -1,6 +1,6 @@
 {
   "name": "wechat-emojis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "完整的微信内置表情资源库，包含 109 个高清 PNG 图片和类型安全的 TypeScript API",
   "main": "wechatEmoji.js",
   "types": "wechatEmoji.d.ts",
