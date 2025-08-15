@@ -115,7 +115,7 @@ console.log(`人脸表情数量: ${faceEmojis.length}`); // 75
 
 ```typescript
 const allEmojis = getAllEmojis();
-console.log(`总表情数量: ${allEmojis.length}`); // 108
+console.log(`总表情数量: ${allEmojis.length}`); // 109
 ```
 
 #### `searchEmojis(keyword: string): EmojiInfo[]`
@@ -213,12 +213,12 @@ const selectEmoji = (emoji: EmojiInfo) => {
 
 ## 数据统计
 
-- **总表情数量**: 108 个
+- **总表情数量**: 109 个
 - **人脸表情**: 75 个
-- **手势表情**: 7 个
+- **手势表情**: 10 个
 - **动物表情**: 4 个
 - **祝福表情**: 7 个
-- **其他表情**: 15 个
+- **其他表情**: 13 个
 
 ## 注意事项
 
