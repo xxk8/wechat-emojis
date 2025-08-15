@@ -4,7 +4,15 @@
  * 提供类型安全的表情访问和图片路径获取功能
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRandomEmoji = exports.getEmojiNames = exports.hasEmoji = exports.searchEmojis = exports.getAllEmojis = exports.getEmojisByCategory = exports.getEmojiInfo = exports.getEmojiPath = exports.EMOJI_CATEGORIES = exports.EmojiCategory = void 0;
+exports.EMOJI_CATEGORIES = exports.EmojiCategory = void 0;
+exports.getEmojiPath = getEmojiPath;
+exports.getEmojiInfo = getEmojiInfo;
+exports.getEmojisByCategory = getEmojisByCategory;
+exports.getAllEmojis = getAllEmojis;
+exports.searchEmojis = searchEmojis;
+exports.hasEmoji = hasEmoji;
+exports.getEmojiNames = getEmojiNames;
+exports.getRandomEmoji = getRandomEmoji;
 /**
  * 表情类别枚举
  */
@@ -20,7 +28,7 @@ var EmojiCategory;
     EmojiCategory["BLESSING"] = "blessing";
     /** 其他表情 */
     EmojiCategory["OTHER"] = "other";
-})(EmojiCategory = exports.EmojiCategory || (exports.EmojiCategory = {}));
+})(EmojiCategory || (exports.EmojiCategory = EmojiCategory = {}));
 /**
  * 表情数据映射
  * 将表情名称映射到完整的表情信息
@@ -178,7 +186,6 @@ function getEmojiPath(name) {
     const emoji = EMOJI_DATA[name];
     return emoji ? emoji.path : null;
 }
-exports.getEmojiPath = getEmojiPath;
 /**
  * 获取表情信息
  * @param name 表情名称
@@ -193,7 +200,6 @@ exports.getEmojiPath = getEmojiPath;
 function getEmojiInfo(name) {
     return EMOJI_DATA[name] || null;
 }
-exports.getEmojiInfo = getEmojiInfo;
 /**
  * 根据类别获取表情列表
  * @param category 表情类别
@@ -207,7 +213,6 @@ exports.getEmojiInfo = getEmojiInfo;
 function getEmojisByCategory(category) {
     return exports.EMOJI_CATEGORIES[category];
 }
-exports.getEmojisByCategory = getEmojisByCategory;
 /**
  * 获取所有表情信息
  * @returns 所有表情的信息数组
@@ -221,7 +226,6 @@ exports.getEmojisByCategory = getEmojisByCategory;
 function getAllEmojis() {
     return getAllEmojiData();
 }
-exports.getAllEmojis = getAllEmojis;
 /**
  * 搜索表情
  * @param keyword 搜索关键词
@@ -236,7 +240,6 @@ exports.getAllEmojis = getAllEmojis;
 function searchEmojis(keyword) {
     return getAllEmojiData().filter(emoji => emoji.name.indexOf(keyword) !== -1);
 }
-exports.searchEmojis = searchEmojis;
 /**
  * 检查表情是否存在
  * @param name 表情名称
@@ -251,7 +254,6 @@ exports.searchEmojis = searchEmojis;
 function hasEmoji(name) {
     return name in EMOJI_DATA;
 }
-exports.hasEmoji = hasEmoji;
 /**
  * 获取表情名称列表
  * @param category 可选的类别筛选
@@ -275,7 +277,6 @@ function getEmojiNames(category) {
     }
     return names;
 }
-exports.getEmojiNames = getEmojiNames;
 /**
  * 随机获取表情
  * @param category 可选的类别筛选
@@ -292,7 +293,6 @@ function getRandomEmoji(category) {
     const randomIndex = Math.floor(Math.random() * emojis.length);
     return emojis[randomIndex];
 }
-exports.getRandomEmoji = getRandomEmoji;
 /**
  * 默认导出对象，包含所有主要功能
  */
