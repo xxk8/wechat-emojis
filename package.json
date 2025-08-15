@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/xxk8/wechat-emojis#readme",
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.2"
   },
   "engines": {
     "node": ">=14.0.0"
