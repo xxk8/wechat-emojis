@@ -90,7 +90,7 @@ const EMOJI_DATA = {
     '汗': { name: '汗', category: EmojiCategory.FACE, path: 'assets/face/汗.png' },
     '天啊': { name: '天啊', category: EmojiCategory.FACE, path: 'assets/face/天啊.png' },
     'Emm': { name: 'Emm', category: EmojiCategory.FACE, path: 'assets/face/Emm.png' },
-    '社会': { name: '社会', category: EmojiCategory.FACE, path: 'assets/face/社会.png' },
+    '社会社会': { name: '社会社会', category: EmojiCategory.FACE, path: 'assets/face/社会社会.png' },
     '旺柴': { name: '旺柴', category: EmojiCategory.FACE, path: 'assets/face/旺柴.png' },
     '好的': { name: '好的', category: EmojiCategory.FACE, path: 'assets/face/好的.png' },
     '打脸': { name: '打脸', category: EmojiCategory.FACE, path: 'assets/face/打脸.png' },
@@ -138,8 +138,8 @@ const EMOJI_DATA = {
     '炸弹': { name: '炸弹', category: EmojiCategory.OTHER, path: 'assets/other/炸弹.png' },
     '便便': { name: '便便', category: EmojiCategory.OTHER, path: 'assets/other/便便.png' },
     '太阳': { name: '太阳', category: EmojiCategory.OTHER, path: 'assets/other/太阳.png' },
-    '晚安': { name: '晚安', category: EmojiCategory.OTHER, path: 'assets/other/晚安.png' },
-    '鲜花': { name: '鲜花', category: EmojiCategory.OTHER, path: 'assets/other/鲜花.png' }
+    '月亮': { name: '月亮', category: EmojiCategory.OTHER, path: 'assets/other/月亮.png' },
+    '玫瑰': { name: '玫瑰', category: EmojiCategory.OTHER, path: 'assets/other/玫瑰.png' }
 };
 /**
  * 获取所有表情数据的辅助函数

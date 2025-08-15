@@ -44,7 +44,7 @@ export type EmojiName =
   | '晕' | '衰' | '骷髅' | '敲打' | '再见' | '擦汗' | '抠鼻' | '鼓掌' | '坏笑' | '右哼哼'
   | '鄙视' | '委屈' | '快哭了' | '阴险' | '亲亲' | '可怜' | '笑脸' | '生病' | '脸红' | '破涕为笑'
   | '恐惧' | '失望' | '无语' | '嘿哈' | '捂脸' | '机智' | '皱眉' | '耶' | '吃瓜'
-  | '加油' | '汗' | '天啊' | 'Emm' | '社会' | '旺柴' | '好的' | '打脸' | '哇' | '翻白眼'
+  | '加油' | '汗' | '天啊' | 'Emm' | '社会社会' | '旺柴' | '好的' | '打脸' | '哇' | '翻白眼'
   | '666' | '让我看看' | '叹气' | '苦涩' | '裂开' | '奸笑'
   // 手势表情
   | '握手' | '胜利' | '抱拳' | '勾引' | '拳头' | 'OK' | '合十' | '强' | '拥抱' | '弱'
@@ -54,7 +54,7 @@ export type EmojiName =
   | '庆祝' | '礼物' | '红包' | '發' | '福' | '烟花' | '爆竹'
   // 其他表情
   | '嘴唇' | '爱心' | '心碎' | '啤酒' | '咖啡' | '蛋糕' | '凋谢' | '菜刀' | '炸弹' | '便便' | '太阳'
-  | '晚安' | '鲜花';
+  | '月亮' | '玫瑰';
 
 /**
  * 表情数据映射
@@ -117,7 +117,6 @@ const EMOJI_DATA: Record<EmojiName, EmojiInfo> = {
   '无语': { name: '无语', category: EmojiCategory.FACE, path: 'assets/face/无语.png' },
   '嘿哈': { name: '嘿哈', category: EmojiCategory.FACE, path: 'assets/face/嘿哈.png' },
   '捂脸': { name: '捂脸', category: EmojiCategory.FACE, path: 'assets/face/捂脸.png' },
-
   '机智': { name: '机智', category: EmojiCategory.FACE, path: 'assets/face/机智.png' },
   '皱眉': { name: '皱眉', category: EmojiCategory.FACE, path: 'assets/face/皱眉.png' },
   '耶': { name: '耶', category: EmojiCategory.FACE, path: 'assets/face/耶.png' },
@@ -127,7 +126,7 @@ const EMOJI_DATA: Record<EmojiName, EmojiInfo> = {
   '汗': { name: '汗', category: EmojiCategory.FACE, path: 'assets/face/汗.png' },
   '天啊': { name: '天啊', category: EmojiCategory.FACE, path: 'assets/face/天啊.png' },
   'Emm': { name: 'Emm', category: EmojiCategory.FACE, path: 'assets/face/Emm.png' },
-  '社会': { name: '社会', category: EmojiCategory.FACE, path: 'assets/face/社会.png' },
+  '社会社会': { name: '社会社会', category: EmojiCategory.FACE, path: 'assets/face/社会社会.png' },
   '旺柴': { name: '旺柴', category: EmojiCategory.FACE, path: 'assets/face/旺柴.png' },
   '好的': { name: '好的', category: EmojiCategory.FACE, path: 'assets/face/好的.png' },
   '打脸': { name: '打脸', category: EmojiCategory.FACE, path: 'assets/face/打脸.png' },
@@ -180,8 +179,8 @@ const EMOJI_DATA: Record<EmojiName, EmojiInfo> = {
   '炸弹': { name: '炸弹', category: EmojiCategory.OTHER, path: 'assets/other/炸弹.png' },
   '便便': { name: '便便', category: EmojiCategory.OTHER, path: 'assets/other/便便.png' },
   '太阳': { name: '太阳', category: EmojiCategory.OTHER, path: 'assets/other/太阳.png' },
-  '晚安': { name: '晚安', category: EmojiCategory.OTHER, path: 'assets/other/晚安.png' },
-  '鲜花': { name: '鲜花', category: EmojiCategory.OTHER, path: 'assets/other/鲜花.png' }
+  '月亮': { name: '月亮', category: EmojiCategory.OTHER, path: 'assets/other/月亮.png' },
+  '玫瑰': { name: '玫瑰', category: EmojiCategory.OTHER, path: 'assets/other/玫瑰.png' }
 };
 
 /**
@@ -295,7 +294,7 @@ export function searchEmojis(keyword: string): EmojiInfo[] {
  * const notExists = hasEmoji('不存在的表情'); // false
  * ```
  */
-export function hasEmoji(name: string): name is EmojiName {
+export function hasEmoji(name: EmojiName): boolean {
   return name in EMOJI_DATA;
 }
 
