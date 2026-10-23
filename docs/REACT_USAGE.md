@@ -66,7 +66,7 @@ cp -r path/to/assets/* public/assets/
 ```
 
 2. **调整图片路径**（重要）：
-由于React项目中public目录的资源访问方式，需要修改 `src/index.ts` 中的图片路径，将所有 `'assets/'` 替换为 `'/assets/'`。使用 npm 包时无需修改，包内的路径是 `assets/...`，直接拼到 `/` 后面即可（如上面的 `/${emojiPath}`）。
+由于React项目中public目录的资源访问方式，需要修改复制过去的 `dist/index.js` 中的图片路径，将所有 `'assets/'` 替换为 `'/assets/'`。使用 npm 包时无需修改，包内的路径是 `assets/...`，直接拼到 `/` 后面即可（如上面的 `/${emojiPath}`）。
 
 
 ## 🚀 基础使用
