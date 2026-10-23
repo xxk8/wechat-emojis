@@ -58,16 +58,18 @@ const WeChatEmoji: React.FC<{name: EmojiName}> = ({ name }) => {
 mkdir -p src/utils/wechat-emojis
 mkdir -p public/assets
 
-# 复制TypeScript模块
-cp path/to/wechatEmoji.ts src/utils/wechat-emojis/
-cp path/to/wechatEmoji.js src/utils/wechat-emojis/
+# 复制TypeScript源码
+cp path/to/src/index.ts src/utils/wechat-emojis/
+
+# 或复制构建产物
+cp path/to/dist/index.js src/utils/wechat-emojis/
 
 # 复制表情资源到public目录
 cp -r path/to/assets/* public/assets/
 ```
 
 2. **调整图片路径**（重要）：
-由于React项目中public目录的资源访问方式，需要修改 `wechatEmoji.ts` 中的图片路径，将所有 `'assets/'` 替换为 `'/assets/'`。
+由于React项目中public目录的资源访问方式，需要修改 `src/index.ts` 中的图片路径，将所有 `'assets/'` 替换为 `'/assets/'`。
 
 
 ## 🚀 基础使用

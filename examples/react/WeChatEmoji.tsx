@@ -3,7 +3,7 @@
  * 用于在React项目中显示微信表情
  */
 import React, { useState } from 'react';
-import { getEmojiPath, type EmojiName } from '../../wechatEmoji';
+import { getEmojiPath, type EmojiName } from '../../src';
 
 interface WeChatEmojiProps {
   /** 表情名称 */

@@ -1,6 +1,6 @@
 /**
  * 微信表情包使用示例
- * 演示如何在项目中使用 wechatEmoji.ts 模块
+ * 演示如何在项目中使用 src/index.ts 模块
  */
 
 import WeChatEmojis, {
@@ -15,7 +15,7 @@ import WeChatEmojis, {
   hasEmoji,
   getEmojiNames,
   getRandomEmoji
-} from './wechatEmoji';
+} from '../src';
 
 // 示例 1: 获取单个表情的路径
 console.log('=== 示例 1: 获取表情路径 ===');
@@ -95,7 +95,7 @@ console.log('\n=== 示例 10: React 使用示例 ===');
 console.log(`
 // React 组件示例
 import React from 'react';
-import { getEmojiPath, getEmojisByCategory, EmojiCategory } from './wechatEmoji';
+import { getEmojiPath, getEmojisByCategory, EmojiCategory } from '../src';
 
 const EmojiPicker: React.FC = () => {
   const faceEmojis = getEmojisByCategory(EmojiCategory.FACE);
