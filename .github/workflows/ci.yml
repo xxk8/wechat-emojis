@@ -18,6 +18,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Verify production install without devDependencies
+        run: |
+          rm -rf "$RUNNER_TEMP/prod"
+          mkdir -p "$RUNNER_TEMP/prod"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/prod"
+          cd "$RUNNER_TEMP/prod"
+          npm install --omit=dev
       - name: Verify packed package installs and loads
         run: |
           npm pack
