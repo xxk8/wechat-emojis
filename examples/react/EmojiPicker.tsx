@@ -8,7 +8,7 @@ import {
   EmojiCategory,
   searchEmojis,
   type EmojiInfo
-} from '../../wechatEmoji';
+} from '../../src';
 import WeChatEmoji from './WeChatEmoji';
 
 interface EmojiPickerProps {

@@ -2,22 +2,21 @@
   "name": "wechat-emojis",
   "version": "1.0.1",
   "description": "完整的微信内置表情资源库，包含 109 个高清 PNG 图片和类型安全的 TypeScript API",
-  "main": "wechatEmoji.js",
-  "types": "wechatEmoji.d.ts",
-  "module": "wechatEmoji.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "wechatEmoji.js",
-    "wechatEmoji.ts",
-    "wechatEmoji.d.ts",
+    "dist/**/*",
     "assets/**/*",
-    "README.md",
-    "API.md",
-    "REACT_USAGE.md"
+    "docs/*.md",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typecheck": "tsc --noEmit",
+    "verify:assets": "node scripts/verify-assets.js",
+    "typecheck:examples": "tsc --noEmit --target es2017 --module commonjs --moduleResolution node --strict examples/typescript/example.ts",
+    "test": "npm run build && npm run typecheck:examples && npm run verify:assets",
+    "prepare": "node scripts/prepare.js"
   },
   "keywords": [
     "wechat",

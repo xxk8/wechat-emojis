@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Verify production install without devDependencies
+        run: |
+          rm -rf "$RUNNER_TEMP/prod"
+          mkdir -p "$RUNNER_TEMP/prod"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/prod"
+          cd "$RUNNER_TEMP/prod"
+          npm install --omit=dev
+      - name: Verify packed package installs and loads
+        run: |
+          npm pack
+          tar -tzf wechat-emojis-*.tgz | grep -q "^package/dist/index.d.ts$"
+          mkdir -p "$RUNNER_TEMP/consumer"
+          cd "$RUNNER_TEMP/consumer"
+          npm init -y >/dev/null
+          npm install "$GITHUB_WORKSPACE"/wechat-emojis-*.tgz >/dev/null
+          node -e "const m=require('wechat-emojis'); if(typeof m.getEmojiPath!=='function'||m.getAllEmojis().length!==109) process.exit(1)"
+          printf "%s\n" \
+            "import { getEmojiPath, type EmojiName } from 'wechat-emojis';" \
+            "const name: EmojiName = '微笑';" \
+            "const path: string | null = getEmojiPath(name);" \
+            "console.log(path);" > index.ts
+          node "$GITHUB_WORKSPACE/node_modules/typescript/bin/tsc" --noEmit --strict --module commonjs --moduleResolution node index.ts

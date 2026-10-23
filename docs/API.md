@@ -2,7 +2,7 @@
 
 ## 概述
 
-`wechatEmoji.ts` 提供了完整的 TypeScript 支持，让你可以类型安全地访问微信表情包资源。
+`src/index.ts` 提供了完整的 TypeScript 支持，让你可以类型安全地访问微信表情包资源。
 
 ## 安装和使用
 
@@ -36,17 +36,17 @@ import WeChatEmojis, {
   getEmojiPath,
   getEmojisByCategory,
   searchEmojis
-} from './wechatEmoji';
+} from './src';
 ```
 
 ### 3. 编译后使用 JavaScript
 
 ```bash
 # 编译 TypeScript
-npx tsc wechatEmoji.ts --target es2017 --module commonjs
+npm run build
 
 # 在 Node.js 中使用
-const { getEmojiPath, EmojiCategory } = require('./wechatEmoji.js');
+const { getEmojiPath, EmojiCategory } = require('./dist/index.js');
 ```
 
 ## API 参考

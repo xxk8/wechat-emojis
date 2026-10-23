@@ -34,7 +34,7 @@ cp -r node_modules/wechat-emojis/assets/* public/assets/
 import { getEmojiPath, getEmojisByCategory, EmojiCategory, searchEmojis } from 'wechat-emojis';
 
 // 或者从本地导入
-// import { getEmojiPath, getEmojisByCategory, EmojiCategory, searchEmojis } from './wechatEmoji';
+// import { getEmojiPath, getEmojisByCategory, EmojiCategory, searchEmojis } from './src';
 
 // 获取单个表情
 const smilePath = getEmojiPath('微笑');  // 'assets/face/微笑.png'
@@ -50,18 +50,19 @@ const laughEmojis = searchEmojis('笑');  // 包含"笑"的所有表情
 
 ```text
 wechat-emojis/
+├── src/
+│   └── index.ts        # TypeScript API模块（源码）
+├── dist/               # 构建产物（npm run build 生成，含 index.js 和 index.d.ts）
 ├── assets/             # 表情图片资源 (109个PNG文件)
 │   ├── face/          # 人脸表情 (75个)
 │   ├── gesture/       # 手势表情 (10个)
 │   ├── animal/        # 动物表情 (4个)
 │   ├── blessing/      # 祝福表情 (7个)
 │   └── other/         # 其他表情 (13个)
-├── wechatEmoji.ts     # TypeScript API模块
-├── wechatEmoji.js     # 编译后的JavaScript文件
-├── data.js            # 基础数据文件
-├── example.ts         # 使用示例
-├── API.md             # 详细API文档
-└── tsconfig.json      # TypeScript配置
+├── examples/           # 使用示例（TypeScript 和 React）
+├── docs/               # API.md、REACT_USAGE.md、NPM_USAGE.md
+├── scripts/            # 资源完整性校验脚本
+└── tsconfig.json       # TypeScript配置
 ```
 
 ## 使用指南
@@ -197,14 +198,14 @@ interface EmojiInfo {
 ## 编译和构建
 
 ```bash
-# 编译 TypeScript
-npx tsc wechatEmoji.ts --target es2017 --module commonjs
+# 编译到 dist/（同时生成 index.d.ts）
+npm run build
 
-# 或使用配置文件
-npx tsc
+# 仅做类型检查
+npm run typecheck
 
-# 生成类型声明文件
-npx tsc --declaration
+# 构建并校验 assets 与表情映射是否一致
+npm test
 ```
 
 ## 常见问题
@@ -246,6 +247,6 @@ const customPath = getEmojiPath('微笑')?.replace('assets/', 'my-assets/');
 # 请我喝杯茶 | buy me a cup of tea
 
 <div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="public/images/alipay.png" alt="支付宝" width="300" />
-  <img src="public/images/wechat.png" alt="微信" width="300" />
+  <img src="docs/images/alipay.png" alt="支付宝" width="300" />
+  <img src="docs/images/wechat.png" alt="微信" width="300" />
 </div>
