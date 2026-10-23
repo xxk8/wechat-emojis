@@ -18,7 +18,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - name: Verify published files
+      - name: Verify packed package installs and loads
         run: |
-          npm pack --dry-run 2>&1 | grep -q "dist/index.d.ts"
-          npm pack --dry-run 2>&1 | grep -q "dist/index.js"
+          npm pack
+          tar -tzf wechat-emojis-*.tgz | grep -q "^package/dist/index.d.ts$"
+          mkdir -p "$RUNNER_TEMP/consumer"
+          cd "$RUNNER_TEMP/consumer"
+          npm init -y >/dev/null
+          npm install "$GITHUB_WORKSPACE"/wechat-emojis-*.tgz >/dev/null
+          node -e "const m=require('wechat-emojis'); if(typeof m.getEmojiPath!=='function'||m.getAllEmojis().length!==109) process.exit(1)"
+          printf "%s\n" \
+            "import { getEmojiPath, type EmojiName } from 'wechat-emojis';" \
+            "const name: EmojiName = '微笑';" \
+            "const path: string | null = getEmojiPath(name);" \
+            "console.log(path);" > index.ts
+          node "$GITHUB_WORKSPACE/node_modules/typescript/bin/tsc" --noEmit --strict --module commonjs --moduleResolution node index.ts

@@ -14,8 +14,9 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "verify:assets": "node scripts/verify-assets.js",
-    "test": "npm run build && npm run verify:assets",
-    "prepack": "npm run build"
+    "typecheck:examples": "tsc --noEmit --target es2017 --module commonjs --moduleResolution node --strict examples/typescript/example.ts",
+    "test": "npm run build && npm run typecheck:examples && npm run verify:assets",
+    "prepare": "npm run build"
   },
   "keywords": [
     "wechat",
