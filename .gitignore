@@ -125,3 +125,9 @@ dist
 .DS_Store
 .vscode
 .npmignore
+
+# Local site QA artifacts
+output/
+
+# Image optimization work area (candidates, review sheets, reports)
+.image-optimization/

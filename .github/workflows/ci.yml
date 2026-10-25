@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,6 +18,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Verify site build
+        run: |
+          npm run build:site
+          npm run check:site
+          test -z "$(git status --porcelain index.html)"
       - name: Verify production install without devDependencies
         run: |
           rm -rf "$RUNNER_TEMP/prod"
@@ -25,10 +30,19 @@ jobs:
           git archive HEAD | tar -x -C "$RUNNER_TEMP/prod"
           cd "$RUNNER_TEMP/prod"
           npm install --omit=dev
+      - name: Verify scripts ship as TypeScript only
+        run: |
+          test -z "$(find scripts site -name '*.js' -o -name '*.mjs' -o -name '*.cjs' | head -1)"
+          node scripts/verify-assets.ts
       - name: Verify packed package installs and loads
         run: |
+          npm run check:package
           npm pack
           tar -tzf wechat-emojis-*.tgz | grep -q "^package/dist/index.d.ts$"
+          if tar -tzf wechat-emojis-*.tgz | grep -Eq "^package/(site|scripts|src|examples)/"; then
+            echo "development files leaked into the package" >&2
+            exit 1
+          fi
           mkdir -p "$RUNNER_TEMP/consumer"
           cd "$RUNNER_TEMP/consumer"
           npm init -y >/dev/null

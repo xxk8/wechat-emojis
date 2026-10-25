@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wechat-emojis · {{TOTAL_COUNT}} 个微信内置表情，类型安全</title>
+  <meta name="description" content="{{TOTAL_COUNT}} 个微信内置表情 PNG 资源库，附类型安全的 TypeScript API。按分类浏览、搜索、复制名称与路径。">
+  <meta name="theme-color" content="#0d0f0e">
+  <link rel="icon" href="{{FEATURED_PATH}}" type="image/png">
+  <link rel="stylesheet" href="site/brand.css">
+  <link rel="stylesheet" href="site/page.css">  <meta property="og:type" content="website">
+  <meta property="og:title" content="wechat-emojis · {{TOTAL_COUNT}} 个微信内置表情">
+  <meta property="og:description" content="完整的微信内置表情 PNG 资源库，附类型安全的 TypeScript API。">
+  <meta property="og:url" content="{{SITE_URL}}/">
+  <meta property="og:image" content="{{OG_IMAGE}}">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <a class="we-skip" href="#main">跳到主要内容</a>
+
+  <header class="we-custom-header">
+    <div class="we-wrap we-custom-header-inner">
+      <a class="we-custom-wordmark" href="#top" aria-label="wechat-emojis 首页">
+        <img src="{{FEATURED_PATH}}" alt="" width="30" height="30">
+        <span>wechat-emojis</span>
+      </a>
+      <nav class="we-custom-nav" aria-label="主导航">
+        <a href="#wall">表情墙</a>
+        <a href="#use">使用</a>
+        <a href="#ledger">数据</a>
+        <a class="we-custom-nav-ext" href="https://github.com/xxk8/wechat-emojis"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="we-custom-stage" id="top" aria-labelledby="hero-title">
+      <div class="we-wrap we-custom-hero">
+        <div class="we-custom-hero-copy">
+          <p class="we-custom-kicker"><span class="we-custom-dot" aria-hidden="true"></span>微信内置表情 · TypeScript</p>
+          <h1 class="we-display we-display--stage" id="hero-title"><span class="we-custom-line">把 <span class="we-custom-mark">{{TOTAL_COUNT}}</span> 个</span><span class="we-custom-line">微信表情，</span><span class="we-custom-line">收进代码里。</span></h1>
+          <p class="we-lede we-custom-lede">完整的微信内置表情 PNG 资源库，附类型安全的 API。按名字、分类或关键词找到它，复制路径，直接用在项目里。</p>
+          <div class="we-cluster">
+            <a class="we-button we-button--primary" href="#wall">浏览全部表情</a>
+            <a class="we-button" href="#use">看怎么用</a>
+          </div>
+          <dl class="we-custom-stats">
+            <div><dt>表情</dt><dd>{{TOTAL_COUNT}}</dd></div>
+            <div><dt>分类</dt><dd>{{CATEGORY_COUNT}}</dd></div>
+            <div><dt>总计</dt><dd>{{TOTAL_KB}} KB</dd></div>
+            <div><dt>尺寸</dt><dd>{{IMAGE_SIZE}}</dd></div>
+          </dl>
+        </div>
+
+        <div class="we-custom-hero-stage">
+          <div class="we-orbit" id="orbit" role="group" aria-label="表情舞台">
+            <div class="we-orbit-ring">
+              {{ORBIT_OUTER}}
+            </div>
+            <div class="we-orbit-ring we-orbit-ring--inner">
+              {{ORBIT_INNER}}
+            </div>
+            <div class="we-featured" id="featured">
+              <div class="we-featured-media">
+                <img id="featured-image" src="{{FEATURED_PATH}}" alt="{{FEATURED_NAME}}" width="190" height="190" decoding="async">
+              </div>
+              <p class="we-featured-name" id="featured-name">{{FEATURED_NAME}}</p>
+              <button class="we-featured-action" type="button" id="featured-next">换一个</button>
+              <p class="we-visually-hidden" aria-live="polite" id="featured-live"></p>
+            </div>
+          </div>
+          <div class="we-custom-orbit-foot">
+            <p class="we-caption we-custom-orbit-caption">点一个表情，把它放到舞台中央。</p>
+            <button class="we-custom-motion-toggle" type="button" id="orbit-toggle" aria-pressed="false">暂停动效</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="we-custom-rail" aria-label="表情分类">
+      <div class="we-wrap we-custom-rail-inner">
+        {{CATEGORY_RAIL}}
+      </div>
+    </nav>
+
+    <section class="we-custom-wall" id="wall" aria-labelledby="wall-title">
+      <div class="we-wrap">
+        <div class="we-custom-section-head">
+          <div class="we-custom-head-copy">
+            <h2 class="we-title" id="wall-title">全部 {{TOTAL_COUNT}} 个表情</h2>
+            <p class="we-body we-muted">按分类浏览，搜索名字，点开就能复制名称、路径或下载 PNG。</p>
+          </div>
+          <div class="we-custom-head-actions">
+            <button class="we-button we-button--quiet" type="button" id="random">随机一个</button>
+            <p class="we-caption we-custom-head-note">点击任意表情查看详情</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="we-custom-toolbar">
+        <div class="we-wrap we-custom-toolbar-inner">
+          <div class="we-custom-search-group">
+            <label class="we-label we-custom-search-label" for="search">搜索</label>
+            <div class="we-field we-custom-search">
+              <input class="we-input" id="search" type="search" placeholder="名字，比如「笑」" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+          <div class="we-custom-filters" role="group" aria-label="按分类筛选">
+            {{FILTERS}}
+          </div>
+          <p class="we-custom-count" aria-live="polite">显示 <span class="we-mono" id="visible-count">{{TOTAL_COUNT}}</span> / <span class="we-mono">{{TOTAL_COUNT}}</span></p>
+        </div>
+      </div>
+
+      <div class="we-wrap we-custom-wall-layout">
+        <aside class="we-custom-aside" aria-label="表情详情">
+          <div class="we-inspector" id="inspector" aria-labelledby="inspector-name">
+            <button class="we-custom-dock-close" type="button" id="inspector-close" aria-label="关闭表情详情" hidden>×</button>
+            <div class="we-inspector-media">
+              <img id="inspector-image" src="{{FEATURED_PATH}}" alt="{{FEATURED_NAME}}" width="200" height="200" decoding="async">
+            </div>
+            <div class="we-inspector-meta">
+              <p class="we-inspector-name" id="inspector-name">{{FEATURED_NAME}}</p>
+              <p class="we-inspector-category" id="inspector-category">{{FEATURED_CATEGORY}}</p>
+              <p class="we-inspector-path" id="inspector-path">{{FEATURED_PATH_RAW}}</p>
+            </div>
+            <div class="we-inspector-actions">
+              <button class="we-button" type="button" data-copy-field="name">复制名称</button>
+              <button class="we-button" type="button" data-copy-field="path">复制路径</button>
+              <a class="we-button" id="inspector-download" href="{{FEATURED_PATH}}" download="{{FEATURED_NAME}}.png" aria-label="下载 {{FEATURED_NAME}}.png">下载 PNG</a>
+            </div>
+            <p class="we-visually-hidden" aria-live="polite" id="inspector-live"></p>
+          </div>
+        </aside>
+
+        <div class="we-custom-wall-main" id="wall-main">
+          {{WALL}}
+          <p class="we-custom-empty" id="empty" hidden>没有找到「<span id="empty-query"></span>」。<button class="we-button we-button--quiet" type="button" id="reset">清除筛选</button></p>
+        </div>
+      </div>
+
+      <noscript>
+        <div class="we-wrap">
+          <p class="we-caption we-custom-noscript">搜索、筛选和复制需要 JavaScript。页面上的全部 {{TOTAL_COUNT}} 个表情仍然可以直接查看和下载。</p>
+        </div>
+      </noscript>
+    </section>
+
+    <section class="we-band--paper we-custom-use" id="use" aria-labelledby="use-title">
+      <div class="we-wrap">
+        <div class="we-custom-section-head">
+          <div class="we-custom-head-copy">
+            <h2 class="we-title" id="use-title">装进项目，只要两步</h2>
+            <p class="we-lede">安装包，把表情资源复制到 public 目录。然后按名字取路径，类型会替你检查拼写。</p>
+          </div>
+          <a class="we-button" href="https://www.npmjs.com/package/wechat-emojis">npm 页面 ↗</a>
+        </div>
+
+        <div class="we-custom-steps">
+          <div class="we-custom-step">
+            <p class="we-label">第一步 · 安装</p>
+            <div class="we-code">
+              <div class="we-code-bar">
+                <span class="we-code-title">终端</span>
+                <button class="we-copy" type="button" data-copy-target="#install-command">复制</button>
+              </div>
+              <pre><code id="install-command">npm install wechat-emojis</code></pre>
+            </div>
+          </div>
+          <div class="we-custom-step">
+            <p class="we-label">第二步 · 复制资源</p>
+            <div class="we-code">
+              <div class="we-code-bar">
+                <span class="we-code-title">终端</span>
+                <button class="we-copy" type="button" data-copy-target="#assets-command">复制</button>
+              </div>
+              <pre><code id="assets-command">mkdir -p public/assets
+cp -r node_modules/wechat-emojis/assets/* public/assets/</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="we-custom-code-grid">
+          <div class="we-custom-code-block">
+            <h3 class="we-heading">按名字、分类或关键词取用</h3>
+            <p class="we-body we-muted">所有函数都带类型，<code class="we-mono">EmojiName</code> 会拦住不存在的名字。</p>
+            <div class="we-code">
+              <div class="we-code-bar">
+                <span class="we-code-title">TypeScript</span>
+                <button class="we-copy" type="button" data-copy-target="#ts-snippet">复制</button>
+              </div>
+              <pre><code id="ts-snippet"><span class="tok-key">import</span> {
+  EmojiCategory,
+  getEmojiPath,
+  getEmojisByCategory,
+  searchEmojis,
+} <span class="tok-key">from</span> <span class="tok-str">'wechat-emojis'</span>;
+
+<span class="tok-key">const</span> path = getEmojiPath(<span class="tok-str">'旺柴'</span>);
+<span class="tok-com">// 'assets/face/旺柴.png'</span>
+
+<span class="tok-key">const</span> faces = getEmojisByCategory(EmojiCategory.FACE);
+<span class="tok-com">// {{FACE_COUNT}} 个</span>
+
+<span class="tok-key">const</span> laugh = searchEmojis(<span class="tok-str">'笑'</span>);
+<span class="tok-com">// 微笑、偷笑、坏笑……</span></code></pre>
+            </div>
+          </div>
+
+          <div class="we-custom-code-block">
+            <h3 class="we-heading">在 React 里铺一面表情墙</h3>
+            <p class="we-body we-muted"><code class="we-mono">getEmojisByCategory</code> 返回的每一项都带有 <code class="we-mono">path</code>，直接作为图片地址即可。</p>
+            <div class="we-code">
+              <div class="we-code-bar">
+                <span class="we-code-title">React + TypeScript</span>
+                <button class="we-copy" type="button" data-copy-target="#react-snippet">复制</button>
+              </div>
+              <pre><code id="react-snippet"><span class="tok-key">import</span> {
+  EmojiCategory,
+  getEmojisByCategory,
+} <span class="tok-key">from</span> <span class="tok-str">'wechat-emojis'</span>;
+
+<span class="tok-key">export function</span> EmojiPicker() {
+  <span class="tok-key">return</span> (
+    &lt;div className=<span class="tok-str">"emoji-grid"</span>&gt;
+      {getEmojisByCategory(EmojiCategory.FACE).map((emoji) =&gt; (
+        &lt;img
+          key={emoji.name}
+          src={emoji.path}
+          alt={emoji.name}
+          width={48}
+          height={48}
+        /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="we-custom-api">
+          <div class="we-custom-api-head">
+            <h3 class="we-heading">API 速查</h3>
+            <p class="we-caption">完整签名见仓库里的 <a href="https://github.com/xxk8/wechat-emojis/blob/main/docs/API.md">docs/API.md</a>。</p>
+          </div>
+          <div class="we-table-wrap">
+            <table class="we-table">
+              <caption>wechat-emojis {{VERSION}} 的公开函数</caption>
+              <thead>
+                <tr>
+                  <th scope="col">函数</th>
+                  <th scope="col">返回</th>
+                  <th scope="col">说明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>getEmojiPath(name)</code></th><td><code>string | null</code></td><td>取单个表情的相对路径</td></tr>
+                <tr><th scope="row"><code>getEmojiInfo(name)</code></th><td><code>EmojiInfo | null</code></td><td>取名称、分类和路径</td></tr>
+                <tr><th scope="row"><code>getEmojisByCategory(category)</code></th><td><code>EmojiInfo[]</code></td><td>按分类取列表</td></tr>
+                <tr><th scope="row"><code>getAllEmojis()</code></th><td><code>EmojiInfo[]</code></td><td>取全部 {{TOTAL_COUNT}} 个</td></tr>
+                <tr><th scope="row"><code>searchEmojis(keyword)</code></th><td><code>EmojiInfo[]</code></td><td>按名称子串搜索</td></tr>
+                <tr><th scope="row"><code>hasEmoji(name)</code></th><td><code>boolean</code></td><td>检查名字是否存在</td></tr>
+                <tr><th scope="row"><code>getEmojiNames(category?)</code></th><td><code>string[]</code></td><td>取名称列表</td></tr>
+                <tr><th scope="row"><code>getRandomEmoji(category?)</code></th><td><code>EmojiInfo</code></td><td>随机取一个</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="we-band--paper we-custom-ledger" id="ledger" aria-labelledby="ledger-title">
+      <div class="we-wrap">
+        <div class="we-custom-section-head">
+          <div class="we-custom-head-copy">
+            <h2 class="we-title" id="ledger-title">这套表情有多大</h2>
+            <p class="we-lede">{{TOTAL_COUNT}} 个文件，共 {{TOTAL_KB}} KB。人脸表情占了大半，单个文件从 {{SMALLEST_KB}} KB 到 {{LARGEST_KB}} KB 不等。</p>
+          </div>
+          <p class="we-caption">按 PNG 文件实际体积统计</p>
+        </div>
+
+        <div class="we-custom-bars">
+          {{BARS}}
+        </div>
+        <p class="we-caption we-custom-bar-note">条形长度按 PNG 体积等比换算，最长的分类为 100%。</p>
+
+        <div class="we-stats we-custom-facts">
+          <div class="we-stat"><span class="we-stat-label">格式</span><span class="we-stat-value we-mono">PNG</span></div>
+          <div class="we-stat"><span class="we-stat-label">尺寸</span><span class="we-stat-value we-mono">{{IMAGE_SIZE_SPACED}}</span></div>
+          <div class="we-stat"><span class="we-stat-label">平均体积</span><span class="we-stat-value we-mono">{{AVERAGE_KB}} KB</span></div>
+          <div class="we-stat"><span class="we-stat-label">代码许可</span><span class="we-stat-value we-mono">MIT</span></div>
+        </div>
+
+        <p class="we-note we-caption">非官方项目，与腾讯及微信团队无关。表情图片版权归腾讯公司所有，仅供个人学习和非商业使用。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="we-custom-footer">
+    <div class="we-wrap we-custom-footer-inner">
+      <div class="we-stack">
+        <a class="we-custom-wordmark" href="#top" aria-label="回到顶部">
+          <img src="{{FEATURED_PATH}}" alt="" width="30" height="30">
+          <span>wechat-emojis</span>
+        </a>
+        <p class="we-custom-footer-note">{{TOTAL_COUNT}} 个微信内置表情，一处收好。</p>
+      </div>
+      <nav class="we-custom-footer-links" aria-label="页脚导航">
+        <a href="https://github.com/xxk8/wechat-emojis">GitHub</a>
+        <a href="https://www.npmjs.com/package/wechat-emojis">npm</a>
+        <a href="https://github.com/xxk8/wechat-emojis/issues">Issues</a>
+        <a href="https://github.com/xxk8/wechat-emojis#readme">README</a>
+      </nav>
+      <p class="we-custom-footer-note">表情图片版权归腾讯公司所有。本站为非官方项目。</p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="emoji-data">{{EMOJI_DATA}}</script>
+  <p class="we-visually-hidden" aria-live="polite" id="copy-live"></p>
+  <script>{{APP_SCRIPT}}</script>
+</body>
+</html>

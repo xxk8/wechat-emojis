@@ -5,18 +5,25 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/**/*",
-    "assets/**/*",
-    "docs/*.md",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "assets/**/*.png",
+    "docs/API.md",
+    "docs/NPM_USAGE.md",
+    "docs/REACT_USAGE.md",
     "README.md"
   ],
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "verify:assets": "node scripts/verify-assets.js",
+    "typecheck:scripts": "tsc -p tsconfig.scripts.json",
+    "verify:assets": "node scripts/verify-assets.ts",
     "typecheck:examples": "tsc --noEmit --target es2017 --module commonjs --moduleResolution node --strict examples/typescript/example.ts",
-    "test": "npm run build && npm run typecheck:examples && npm run verify:assets",
-    "prepare": "node scripts/prepare.js"
+    "test": "npm run build && npm run typecheck:scripts && npm run typecheck:examples && npm run verify:assets && npm run check:package",
+    "build:site": "node scripts/build-site.ts",
+    "check:site": "node scripts/check-site.ts",
+    "check:package": "node scripts/check-package.ts",
+    "prepare": "node scripts/prepare.ts"
   },
   "keywords": [
     "wechat",
@@ -38,8 +45,10 @@
   "bugs": {
     "url": "https://github.com/xxk8/wechat-emojis/issues"
   },
-  "homepage": "https://github.com/xxk8/wechat-emojis#readme",
+  "homepage": "https://xxk8.github.io/wechat-emojis/",
   "devDependencies": {
+    "@types/node": "^22.20.5",
+    "esbuild": "^0.28.2",
     "typescript": "^5.9.2"
   },
   "engines": {

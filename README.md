@@ -1,6 +1,62 @@
 # 微信表情包
 
-完整的微信内置表情资源库，包含 109 个高清 PNG 图片和类型安全的 TypeScript API。
+完整的微信内置表情资源库，包含 109 个 100×100 PNG 图片和类型安全的 TypeScript API，全部图片合计 690.3 KB。
+
+## 在线浏览
+
+[https://xxk8.github.io/wechat-emojis/](https://xxk8.github.io/wechat-emojis/)
+
+网站是纯静态的：`index.html` 由 `site/index.template.html`、`site/app.ts` 和 `src/index.ts` 生成，表情图片直接复用 `assets/`。视觉与交互规范记录在仓库的 `design.md`。
+
+```bash
+npm run build:site   # 重新生成 index.html（含内联的页面脚本）
+npm run check:site   # 校验表情数量、资源引用和页面结构
+```
+
+修改表情映射或 `site/` 下的模板、样式、脚本后，重新运行 `build:site` 并提交 `index.html`。GitHub Pages 直接从 `main` 分支根目录发布，不需要构建流水线。
+
+### 全部源码为 TypeScript
+
+仓库里没有手写的 `.js` / `.mjs`：`src/`、`scripts/`、`site/app.ts` 都是 TypeScript。脚本由 Node 的类型剥离直接运行，不产出中间文件；页面脚本由构建时用 esbuild 编译并内联进 `index.html`，所以站点没有额外的 JS 请求。
+
+运行脚本需要 **Node.js ≥ 22.6**（类型剥离）；已发布的 npm 包本身仍支持 Node 14+，因为消费者只用 `dist/` 与 PNG。
+
+```bash
+npm run typecheck:scripts   # 校验 scripts/ 与 site/app.ts 的类型
+```
+
+迁移细节与取舍记录在仓库的 `docs/TYPESCRIPT.md`。
+
+### npm 包里装的是什么
+
+只装运行时需要的东西，网站源码不随包发布：
+
+| 内容 | 路径 |
+| --- | --- |
+| 运行时 | `dist/index.js`、`dist/index.d.ts` |
+| 表情资源 | `assets/**/*.png`（109 张） |
+| 使用文档 | `docs/API.md`、`docs/NPM_USAGE.md`、`docs/REACT_USAGE.md` |
+| 包说明 | `README.md`、`package.json` |
+
+**不会**包含 `site/`、`scripts/`、`src/`、`examples/`、`index.html`、`design.md`、`docs/TYPESCRIPT.md`、`tsconfig*`、`.github/`。白名单在 `package.json` 的 `files` 字段，已显式列到单个文件而不是通配目录。
+
+```bash
+npm run check:package   # 实际跑 npm pack，断言包内没有开发文件与死链
+```
+
+#### 从本地目录安装时的注意
+
+`files` 字段只作用于 `npm pack` / `publish`。如果直接 `npm install ../wechat-emojis` 指向本地仓库，npm 会以**软链接**把整个仓库接进项目（包括 `site/`、`scripts/`、`index.html`）。这是 npm 对本地路径的固有行为。
+
+要拿到与发布版一致的内容：
+
+```bash
+npm install ../wechat-emojis --install-links   # 按 files 白名单打包后安装
+# 或者先打包再装
+npm pack ../wechat-emojis && npm install ./wechat-emojis-2.0.0.tgz
+```
+
+从 npm registry 或 Git 地址安装不受此影响，实际内容仍是上表那 116 个文件。
 
 ## 功能特性
 
@@ -9,7 +65,7 @@
 - 🚀 **即插即用** - 支持 React、Vue、Angular 等主流框架
 - 📦 **多种导入方式** - ES6 模块、CommonJS、直接文件引用
 - 🔍 **强大 API** - 搜索、分类、随机获取等功能
-- 📱 **高质量图片** - PNG 格式，适合各种显示场景
+- 📱 **统一尺寸** - 全部 PNG 都是 100×100 透明背景，整套 690.3 KB
 - 📚 **详细文档** - 完整 API 文档和使用示例
 
 ## 快速开始
@@ -50,6 +106,9 @@ const laughEmojis = searchEmojis('笑');  // 包含"笑"的所有表情
 
 ```text
 wechat-emojis/
+├── index.html          # GitHub Pages 站点（由 scripts/build-site.ts 生成）
+├── design.md           # 站点设计规范与检查清单
+├── site/               # 站点模板、品牌样式、页面样式与 app.ts
 ├── src/
 │   └── index.ts        # TypeScript API模块（源码）
 ├── dist/               # 构建产物（npm run build 生成，含 index.js 和 index.d.ts）
@@ -61,7 +120,7 @@ wechat-emojis/
 │   └── other/         # 其他表情 (13个)
 ├── examples/           # 使用示例（TypeScript 和 React）
 ├── docs/               # API.md、REACT_USAGE.md、NPM_USAGE.md
-├── scripts/            # 资源完整性校验脚本
+├── scripts/            # 资源校验、站点生成、站点检查与图片优化脚本（全部 .ts）
 └── tsconfig.json       # TypeScript配置
 ```
 
@@ -190,8 +249,8 @@ interface EmojiInfo {
 
 ## 技术要求
 
-- **TypeScript**: 4.0+ (可选，用于类型检查)
-- **Node.js**: 12+ (用于编译，可选)
+- **TypeScript**: 5.9+（仓库开发需要；使用包时可选用任意 4.0+）
+- **Node.js**: 消费者 14+；运行本仓库的脚本需要 22.6+（类型剥离）
 - **浏览器**: 支持 ES2017+ 的现代浏览器
 - **框架**: React 16+, Vue 3+, Angular 12+ 或原生 JavaScript
 
@@ -204,8 +263,11 @@ npm run build
 # 仅做类型检查
 npm run typecheck
 
-# 构建并校验 assets 与表情映射是否一致
+# 构建、类型检查、校验 assets 与表情映射，并检查发布包内容
 npm test
+
+# 重新生成静态站点并校验
+npm run build:site && npm run check:site
 ```
 
 ## 常见问题
