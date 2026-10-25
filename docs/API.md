@@ -9,10 +9,20 @@
 ### 1. 通过 NPM 安装（推荐）
 
 ```bash
-# 安装包
 npm install wechat-emojis
+```
 
-# 复制表情资源到项目的 public 目录（重要）
+装完即可用 `getEmojiUrl` 拿可直接渲染的图片地址，不需要复制任何文件：
+
+```tsx
+import { getEmojiUrl } from 'wechat-emojis';
+
+<img src={getEmojiUrl('旺柴')!} alt="旺柴" width={48} height={48} />
+```
+
+如果需要离线或自托管，再执行复制步骤并改用 `getEmojiPath`：
+
+```bash
 mkdir -p public/assets
 cp -r node_modules/wechat-emojis/assets/* public/assets/
 ```
@@ -84,12 +94,25 @@ interface EmojiInfo {
 
 #### `getEmojiPath(name: EmojiName): string | null`
 
-获取表情图片路径。
+获取表情图片在包内的相对路径，需要配合 `public/assets` 或打包器使用。
 
 ```typescript
 const path = getEmojiPath('微笑'); // 'assets/face/微笑.png'
 const invalid = getEmojiPath('不存在'); // null
 ```
+
+#### `getEmojiUrl(name: EmojiName): string | null`
+
+获取表情图片的完整 URL（jsDelivr，指向 `wechat-emojis@2`），可以直接作为 `<img src>`，无需复制文件。
+
+```typescript
+const url = getEmojiUrl('微笑');
+// 'https://cdn.jsdelivr.net/npm/wechat-emojis@2/assets/face/%E5%BE%AE%E7%AC%91.png'
+```
+
+#### `EMOJI_CDN_BASE`
+
+`getEmojiUrl` 使用的根地址常量，需要换 CDN 或锁小版本时可自行拼接。
 
 #### `getEmojiInfo(name: EmojiName): EmojiInfo | null`
 

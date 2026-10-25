@@ -3,7 +3,7 @@
  * 用于在React项目中显示微信表情
  */
 import React, { useState } from 'react';
-import { getEmojiPath, type EmojiName } from '../../src';
+import { getEmojiUrl, type EmojiName } from '../../src';
 
 interface WeChatEmojiProps {
   /** 表情名称 */
@@ -38,7 +38,7 @@ const WeChatEmoji: React.FC<WeChatEmojiProps> = ({
   onClick
 }) => {
   const [hasError, setHasError] = useState(false);
-  const emojiPath = getEmojiPath(name);
+  const emojiPath = getEmojiUrl(name);
 
   // 如果表情不存在或加载失败，显示回退内容
   if (!emojiPath || hasError) {

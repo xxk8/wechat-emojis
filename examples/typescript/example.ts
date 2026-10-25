@@ -7,7 +7,9 @@ import WeChatEmojis, {
   EmojiCategory,
   EmojiInfo,
   EmojiName,
+  EMOJI_CDN_BASE,
   getEmojiPath,
+  getEmojiUrl,
   getEmojiInfo,
   getEmojisByCategory,
   getAllEmojis,
@@ -16,6 +18,12 @@ import WeChatEmojis, {
   getEmojiNames,
   getRandomEmoji
 } from '../../src';
+
+// 示例 0: 装完即用，直接拿可渲染的图片地址
+console.log('=== 示例 0: 获取可直接使用的图片 URL ===');
+const smileUrl = getEmojiUrl('微笑');
+console.log(`微笑图片 URL: ${smileUrl}`);
+console.log(`CDN 根地址: ${EMOJI_CDN_BASE}`);
 
 // 示例 1: 获取单个表情的路径
 console.log('=== 示例 1: 获取表情路径 ===');

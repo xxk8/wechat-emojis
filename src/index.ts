@@ -224,6 +224,27 @@ export function getEmojiPath(name: EmojiName): string | null {
 }
 
 /**
+ * jsDelivr 上的表情图片根地址，跟随 2.x 的最新发布
+ */
+export const EMOJI_CDN_BASE = 'https://cdn.jsdelivr.net/npm/wechat-emojis@2';
+
+/**
+ * 获取表情图片的完整 URL，可以直接给 <img src> 使用，无需复制任何文件
+ * @param name 表情名称
+ * @returns 图片的绝对 URL，如果表情不存在则返回 null
+ *
+ * @example
+ * ```typescript
+ * const url = getEmojiUrl('旺柴');
+ * // 'https://cdn.jsdelivr.net/npm/wechat-emojis@2/assets/face/%E6%97%BA%E6%9F%B4.png'
+ * ```
+ */
+export function getEmojiUrl(name: EmojiName): string | null {
+  const path = getEmojiPath(name);
+  return path ? `${EMOJI_CDN_BASE}/${encodeURI(path)}` : null;
+}
+
+/**
  * 获取表情信息
  * @param name 表情名称
  * @returns 表情信息对象，如果表情不存在则返回 null
@@ -348,9 +369,11 @@ const WeChatEmojis = {
 
   // 数据
   EMOJI_CATEGORIES,
+  EMOJI_CDN_BASE,
 
   // 工具函数
   getEmojiPath,
+  getEmojiUrl,
   getEmojiInfo,
   getEmojisByCategory,
   getAllEmojis,

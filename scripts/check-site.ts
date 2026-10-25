@@ -93,7 +93,10 @@ function checkHtml(entries: ReturnType<typeof readEmojiSource>): { tiles: number
 
   const counts = countByCategory(entries);
   const tableRows = html.match(/<tr><th scope="row"><code>([^<]+)<\/code>/g) ?? [];
-  if (tableRows.length !== 8) fail(`API table should list 8 functions, found ${tableRows.length}`);
+  if (tableRows.length !== 9) fail(`API table should list 9 functions, found ${tableRows.length}`);
+  if (!html.includes("<code>getEmojiUrl(name)</code>")) {
+    fail("API table does not list getEmojiUrl");
+  }
 
   const version = (
     JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")) as { version?: string }

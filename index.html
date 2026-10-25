@@ -919,8 +919,8 @@
       <div class="we-wrap">
         <div class="we-custom-section-head">
           <div class="we-custom-head-copy">
-            <h2 class="we-title" id="use-title">装进项目，只要两步</h2>
-            <p class="we-lede">安装包，把表情资源复制到 public 目录。然后按名字取路径，类型会替你检查拼写。</p>
+            <h2 class="we-title" id="use-title">装进项目，一行就够</h2>
+            <p class="we-lede">安装之后用 <code class="we-mono">getEmojiUrl</code> 直接拿图片地址，不用复制任何文件。想自托管时再复制 assets。</p>
           </div>
           <a class="we-button" href="https://www.npmjs.com/package/wechat-emojis">npm 页面 ↗</a>
         </div>
@@ -937,14 +937,15 @@
             </div>
           </div>
           <div class="we-custom-step">
-            <p class="we-label">第二步 · 复制资源</p>
+            <p class="we-label">第二步 · 直接用</p>
             <div class="we-code">
               <div class="we-code-bar">
-                <span class="we-code-title">终端</span>
-                <button class="we-copy" type="button" data-copy-target="#assets-command">复制</button>
+                <span class="we-code-title">TypeScript</span>
+                <button class="we-copy" type="button" data-copy-target="#url-command">复制</button>
               </div>
-              <pre><code id="assets-command">mkdir -p public/assets
-cp -r node_modules/wechat-emojis/assets/* public/assets/</code></pre>
+              <pre><code id="url-command">import { getEmojiUrl } from 'wechat-emojis';
+
+&lt;img src={getEmojiUrl('旺柴')!} alt="旺柴" /&gt;</code></pre>
             </div>
           </div>
         </div>
@@ -960,13 +961,13 @@ cp -r node_modules/wechat-emojis/assets/* public/assets/</code></pre>
               </div>
               <pre><code id="ts-snippet"><span class="tok-key">import</span> {
   EmojiCategory,
-  getEmojiPath,
+  getEmojiUrl,
   getEmojisByCategory,
   searchEmojis,
 } <span class="tok-key">from</span> <span class="tok-str">'wechat-emojis'</span>;
 
-<span class="tok-key">const</span> path = getEmojiPath(<span class="tok-str">'旺柴'</span>);
-<span class="tok-com">// 'assets/face/旺柴.png'</span>
+<span class="tok-key">const</span> url = getEmojiUrl(<span class="tok-str">'旺柴'</span>);
+<span class="tok-com">// 'https://cdn.jsdelivr.net/npm/wechat-emojis@2/assets/face/旺柴.png'</span>
 
 <span class="tok-key">const</span> faces = getEmojisByCategory(EmojiCategory.FACE);
 <span class="tok-com">// 75 个</span>
@@ -1015,7 +1016,7 @@ cp -r node_modules/wechat-emojis/assets/* public/assets/</code></pre>
           </div>
           <div class="we-table-wrap">
             <table class="we-table">
-              <caption>wechat-emojis 2.0.0 的公开函数</caption>
+              <caption>wechat-emojis 2.1.0 的公开函数</caption>
               <thead>
                 <tr>
                   <th scope="col">函数</th>
@@ -1024,7 +1025,8 @@ cp -r node_modules/wechat-emojis/assets/* public/assets/</code></pre>
                 </tr>
               </thead>
               <tbody>
-                <tr><th scope="row"><code>getEmojiPath(name)</code></th><td><code>string | null</code></td><td>取单个表情的相对路径</td></tr>
+                <tr><th scope="row"><code>getEmojiPath(name)</code></th><td><code>string | null</code></td><td>取包内相对路径（自托管时用）</td></tr>
+                <tr><th scope="row"><code>getEmojiUrl(name)</code></th><td><code>string | null</code></td><td>取可直接渲染的图片 URL</td></tr>
                 <tr><th scope="row"><code>getEmojiInfo(name)</code></th><td><code>EmojiInfo | null</code></td><td>取名称、分类和路径</td></tr>
                 <tr><th scope="row"><code>getEmojisByCategory(category)</code></th><td><code>EmojiInfo[]</code></td><td>按分类取列表</td></tr>
                 <tr><th scope="row"><code>getAllEmojis()</code></th><td><code>EmojiInfo[]</code></td><td>取全部 109 个</td></tr>

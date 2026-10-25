@@ -75,28 +75,49 @@ npm pack ../wechat-emojis && npm install ./wechat-emojis-2.0.0.tgz
 #### 通过 NPM 安装（推荐）
 
 ```bash
-# 使用 npm 安装
 npm install wechat-emojis
+```
 
-# 复制表情资源到项目的 public 目录（重要）
+就这一步。图片由 jsDelivr 直接从 npm 包提供，用 `getEmojiUrl` 拿到的就是可用的 `<img src>`：
+
+```tsx
+import { getEmojiUrl } from 'wechat-emojis';
+
+<img src={getEmojiUrl('旺柴')!} alt="旺柴" width={48} height={48} />
+```
+
+**可选：离线 / 自托管**。如果不想依赖 CDN，把图片复制到你的静态目录，改用 `getEmojiPath`：
+
+```bash
 mkdir -p public/assets
 cp -r node_modules/wechat-emojis/assets/* public/assets/
+```
+
+```tsx
+import { getEmojiPath } from 'wechat-emojis';
+
+<img src={getEmojiPath('旺柴')!} alt="旺柴" width={48} height={48} />
 ```
 
 ### 基础用法
 
 ```typescript
-// 使用 NPM 安装的情况
-import { getEmojiPath, getEmojisByCategory, EmojiCategory, searchEmojis } from 'wechat-emojis';
+import {
+  getEmojiPath,
+  getEmojiUrl,
+  getEmojisByCategory,
+  EmojiCategory,
+  searchEmojis,
+} from 'wechat-emojis';
 
-// 或者从本地导入
-// import { getEmojiPath, getEmojisByCategory, EmojiCategory, searchEmojis } from './src';
+// 远程 URL，装完就能用
+const smileUrl = getEmojiUrl('微笑');  // 'https://cdn.jsdelivr.net/npm/wechat-emojis@2/assets/face/%E5%BE%AE%E7%AC%91.png'
 
-// 获取单个表情
+// 包内相对路径，配合 public/assets 使用
 const smilePath = getEmojiPath('微笑');  // 'assets/face/微笑.png'
 
 // 获取分类表情
-const faceEmojis = getEmojisByCategory(EmojiCategory.FACE);  // 75个人脸表情
+const faceEmojis = getEmojisByCategory(EmojiCategory.FACE);  // 75 个人脸表情
 
 // 搜索表情
 const laughEmojis = searchEmojis('笑');  // 包含"笑"的所有表情

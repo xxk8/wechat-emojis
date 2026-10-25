@@ -6,6 +6,14 @@
 npm install wechat-emojis
 ```
 
+安装后直接用 `getEmojiUrl` 即可拿到可渲染的图片地址，不需要复制文件：
+
+```tsx
+import { getEmojiUrl } from 'wechat-emojis';
+
+<img src={getEmojiUrl('旺柴')!} alt="旺柴" width={32} height={32} />
+```
+
 ### 2. 在 React 项目中使用
 
 #### 基础导入
@@ -13,6 +21,7 @@ npm install wechat-emojis
 ```typescript
 import {
   getEmojiPath,
+  getEmojiUrl,
   getEmojisByCategory,
   EmojiCategory,
   searchEmojis,
@@ -93,9 +102,24 @@ export default App;
 
 ### 3. 处理静态资源
 
-由于表情图片是静态资源，你需要将它们复制到项目的 public 目录：
+由于表情图片是静态资源，你有两种选择。
 
-#### 方法一：手动复制
+#### 默认：用 `getEmojiUrl` 直接引用 jsDelivr 上的图片
+
+```tsx
+import { getEmojiUrl } from 'wechat-emojis';
+
+const url = getEmojiUrl('旺柴');
+// https://cdn.jsdelivr.net/npm/wechat-emojis@2/assets/face/%E6%97%BA%E6%9F%B4.png
+```
+
+无需任何复制步骤，也不占用你的构建产物。
+
+#### 可选：自托管（不想依赖 CDN 时）
+
+将表情图片复制到项目的 public 目录，并改用 `getEmojiPath`：
+
+##### 方法一：手动复制
 
 ```bash
 # 创建资源目录

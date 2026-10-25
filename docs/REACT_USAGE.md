@@ -12,15 +12,24 @@
 npm install wechat-emojis
 ```
 
-2. **复制资源文件**：
-由于npm包中的图片资源需要被复制到你的项目public目录，请执行以下命令：
+2. **直接用**：
+
+图片由 jsDelivr 从 npm 包提供，用 `getEmojiUrl` 拿到的就是可用的图片地址，不需要复制任何文件：
+
+```tsx
+import { getEmojiUrl } from 'wechat-emojis';
+
+<img src={getEmojiUrl('旺柴')!} alt="旺柴" width={24} height={24} />
+```
+
+如果不想依赖 CDN，再执行复制步骤并改用 `getEmojiPath`：
 
 ```bash
 # 复制表情资源到你的项目
 cp -r node_modules/wechat-emojis/assets/* public/assets/
 ```
 
-你也可以在 `package.json` 中配置一个脚本，在安装后自动完成复制：
+也可以在 `package.json` 中配置一个脚本，在安装后自动完成复制：
 
 ```json
 // package.json
@@ -36,7 +45,7 @@ cp -r node_modules/wechat-emojis/assets/* public/assets/
 ```typescript
 // 直接从npm包导入
 import {
-  getEmojiPath,
+  getEmojiUrl,
   getEmojisByCategory,
   EmojiCategory,
   type EmojiName
@@ -44,9 +53,8 @@ import {
 
 // 使用示例
 const WeChatEmoji: React.FC<{name: EmojiName}> = ({ name }) => {
-  const emojiPath = getEmojiPath(name);
-  // 确保你的 public 目录配置正确，可以直接访问 /assets/
-  return <img src={`/${emojiPath}`} alt={name} width={24} height={24} />;
+  const emojiUrl = getEmojiUrl(name);
+  return <img src={emojiUrl ?? ''} alt={name} width={24} height={24} />;
 };
 ```
 
@@ -88,7 +96,7 @@ import {
 ```tsx
 // src/components/WeChatEmoji.tsx
 import React from 'react';
-import { getEmojiPath, type EmojiName } from 'wechat-emojis';
+import { getEmojiUrl, type EmojiName } from 'wechat-emojis';
 
 interface WeChatEmojiProps {
   name: EmojiName;
@@ -103,7 +111,7 @@ const WeChatEmoji: React.FC<WeChatEmojiProps> = ({
   className = '',
   alt
 }) => {
-  const emojiPath = getEmojiPath(name);
+  const emojiPath = getEmojiUrl(name);
 
   if (!emojiPath) {
     console.warn(`表情 "${name}" 不存在`);
@@ -238,7 +246,7 @@ export default EmojiPicker;
 ```tsx
 // src/components/ChatMessage.tsx
 import React from 'react';
-import { getEmojiPath, type EmojiName } from 'wechat-emojis';
+import { getEmojiUrl, type EmojiName } from 'wechat-emojis';
 
 interface ChatMessageProps {
   content: string;
@@ -261,7 +269,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ content, emojiSize = 20 }) =>
 
       // 添加表情
       const emojiName = match[1] as EmojiName;
-      const emojiPath = getEmojiPath(emojiName);
+      const emojiPath = getEmojiUrl(emojiName);
 
       if (emojiPath) {
         parts.push(
@@ -317,7 +325,7 @@ const WeChatEmoji = React.memo<WeChatEmojiProps>(({ name, size, className, alt }
 // 预加载常用表情
 const preloadEmojis = (emojiNames: EmojiName[]) => {
   emojiNames.forEach(name => {
-    const path = getEmojiPath(name);
+    const path = getEmojiUrl(name);
     if (path) {
       const img = new Image();
       img.src = path;
@@ -331,7 +339,7 @@ const preloadEmojis = (emojiNames: EmojiName[]) => {
 ```tsx
 const WeChatEmoji: React.FC<WeChatEmojiProps> = ({ name, size = 24, fallback }) => {
   const [hasError, setHasError] = useState(false);
-  const emojiPath = getEmojiPath(name);
+  const emojiPath = getEmojiUrl(name);
 
   if (!emojiPath || hasError) {
     return fallback || <span>[{name}]</span>;
