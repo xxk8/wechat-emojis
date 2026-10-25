@@ -95,6 +95,7 @@ function main(): void {
   const featuredNext = required<HTMLButtonElement>("#featured-next");
   const featuredLive = required<HTMLElement>("#featured-live");
   const aside = required<HTMLElement>(".we-custom-aside");
+  const scrim = required<HTMLElement>("#inspector-scrim");
   const inspectorClose = required<HTMLButtonElement>("#inspector-close");
   const orbit = required<HTMLElement>("#orbit");
   const orbitToggle = required<HTMLButtonElement>("#orbit-toggle");
@@ -121,11 +122,15 @@ function main(): void {
   const openDock = (): void => {
     if (!mobileDock.matches) return;
     aside.classList.add("is-open");
+    scrim.hidden = false;
+    document.documentElement.classList.add("is-docked");
     inspectorClose.hidden = false;
   };
 
   const closeDock = (): void => {
     aside.classList.remove("is-open");
+    scrim.hidden = true;
+    document.documentElement.classList.remove("is-docked");
     inspectorClose.hidden = true;
   };
 
@@ -286,6 +291,11 @@ function main(): void {
   });
 
   inspectorClose.addEventListener("click", () => {
+    closeDock();
+    focusSelectedTile();
+  });
+
+  scrim.addEventListener("click", () => {
     closeDock();
     focusSelectedTile();
   });

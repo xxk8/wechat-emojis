@@ -165,7 +165,7 @@ export function main(): void {
 
   const replacements: Record<string, string> = {
     "{{SITE_URL}}": SITE_URL,
-    "{{OG_IMAGE}}": `${SITE_URL}/${encodeURI(featured.path)}`,
+    "{{OG_IMAGE}}": `${SITE_URL}/site/og-card.png`,
     "{{TOTAL_COUNT}}": String(entries.length),
     "{{CATEGORY_COUNT}}": String(CATEGORIES.length),
     "{{TOTAL_KB}}": formatKb(totalBytes),

@@ -8,12 +8,20 @@
   <meta name="theme-color" content="#0d0f0e">
   <link rel="icon" href="{{FEATURED_PATH}}" type="image/png">
   <link rel="stylesheet" href="site/brand.css">
-  <link rel="stylesheet" href="site/page.css">  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="site/page.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="wechat-emojis">
   <meta property="og:title" content="wechat-emojis · {{TOTAL_COUNT}} 个微信内置表情">
-  <meta property="og:description" content="完整的微信内置表情 PNG 资源库，附类型安全的 TypeScript API。">
+  <meta property="og:description" content="{{TOTAL_COUNT}} 个 100×100 PNG，共 {{TOTAL_KB}} KB，附类型安全的 TypeScript API。按名字、分类或关键词找到它，复制路径直接用。">
   <meta property="og:url" content="{{SITE_URL}}/">
   <meta property="og:image" content="{{OG_IMAGE}}">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="wechat-emojis：把 {{TOTAL_COUNT}} 个微信表情收进代码里">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{OG_IMAGE}}">
 </head>
 <body>
   <a class="we-skip" href="#main">跳到主要内容</a>
@@ -113,6 +121,7 @@
       </div>
 
       <div class="we-wrap we-custom-wall-layout">
+        <div class="we-custom-scrim" id="inspector-scrim" hidden></div>
         <aside class="we-custom-aside" aria-label="表情详情">
           <div class="we-inspector" id="inspector" aria-labelledby="inspector-name">
             <button class="we-custom-dock-close" type="button" id="inspector-close" aria-label="关闭表情详情" hidden>×</button>

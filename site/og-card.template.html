@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>wechat-emojis 分享卡</title>
+  <link rel="stylesheet" href="brand.css">
+  <style>
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      margin: 0;
+      overflow: hidden;
+      background: var(--we-ink);
+      color: var(--we-text);
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
+      height: 100%;
+      padding: 64px 72px;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -18%;
+      right: -6%;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(247, 207, 70, 0.16), transparent 64%);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--we-rule);
+      pointer-events: none;
+    }
+
+    .copy {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      color: var(--we-muted);
+      font-size: 18px;
+      letter-spacing: 0.02em;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--we-green);
+      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.14);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--we-font-display);
+      font-size: 82px;
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .mark {
+      color: var(--we-emoji);
+    }
+
+    .facts {
+      margin: 4px 0 0;
+      color: var(--we-muted);
+      font-family: var(--we-font-mono);
+      font-size: 19px;
+      letter-spacing: 0.01em;
+    }
+
+    .url {
+      margin: 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--we-rule);
+      color: var(--we-emoji);
+      font-family: var(--we-font-mono);
+      font-size: 19px;
+    }
+
+    .grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .grid li {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border: 1px solid var(--we-rule);
+      border-radius: var(--we-radius);
+      background: var(--we-ink-2);
+    }
+
+    .grid img {
+      width: 72%;
+      height: 72%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="copy">
+      <p class="kicker"><span class="dot"></span>微信内置表情 · TypeScript</p>
+      <h1>把 <span class="mark">{{TOTAL_COUNT}}</span> 个<br>微信表情，<br>收进代码里。</h1>
+      <p class="facts">{{TOTAL_COUNT}} 张 PNG · {{IMAGE_SIZE}} · {{CATEGORY_COUNT}} 个分类 · MIT</p>
+      <p class="url">xxk8.github.io/wechat-emojis</p>
+    </div>
+    <ul class="grid">
+      <li><img src="../assets/face/旺柴.png" alt=""></li>
+      <li><img src="../assets/face/捂脸.png" alt=""></li>
+      <li><img src="../assets/face/裂开.png" alt=""></li>
+      <li><img src="../assets/face/吃瓜.png" alt=""></li>
+      <li><img src="../assets/gesture/OK.png" alt=""></li>
+      <li><img src="../assets/blessing/福.png" alt=""></li>
+      <li><img src="../assets/other/爱心.png" alt=""></li>
+      <li><img src="../assets/blessing/红包.png" alt=""></li>
+      <li><img src="../assets/face/偷笑.png" alt=""></li>
+      <li><img src="../assets/face/加油.png" alt=""></li>
+      <li><img src="../assets/animal/猪头.png" alt=""></li>
+      <li><img src="../assets/other/咖啡.png" alt=""></li>
+    </ul>
+  </div>
+</body>
+</html>

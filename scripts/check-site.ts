@@ -158,6 +158,27 @@ function checkHtml(entries: ReturnType<typeof readEmojiSource>): { tiles: number
     }
   }
 
+  const ogImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (!ogImage) {
+    fail("Page is missing og:image");
+  } else if (!ogImage.startsWith(SITE_URL)) {
+    fail(`og:image is not absolute: ${ogImage}`);
+  } else {
+    const localPath = ogImage.slice(SITE_URL.length + 1);
+    const card = join(ROOT, decodeURIComponent(localPath));
+    if (!existsSync(card)) {
+      fail(`og:image file is missing: ${localPath}`);
+    } else {
+      const { width, height } = readPngDimensions(card);
+      if (width !== 1200 || height !== 630) {
+        fail(`og:image is ${width}x${height}, expected 1200x630`);
+      }
+    }
+  }
+  if (!html.includes('<meta name="twitter:card" content="summary_large_image">')) {
+    fail("Page should use a large Twitter card");
+  }
+
   if (/\{\{[A-Z_]+\}\}/.test(html)) fail("index.html still contains unresolved template tokens");
   if (/\{\{[A-Z_]+\}\}/.test(template.replace(/\{\{[A-Z_]+\}\}/g, ""))) {
     fail("Template has stray tokens");

@@ -51,6 +51,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -86,6 +87,10 @@ a {
   outline: 2px solid var(--we-emoji);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+:where(a, button, input, [tabindex]) {
+  touch-action: manipulation;
 }
 
 .we-band--paper :where(a, button, input, [tabindex]):focus-visible {
@@ -898,6 +903,25 @@ a {
 }
 
 
+@media (hover: none) and (pointer: coarse) {
+  .we-input {
+    font-size: 16px;
+  }
+
+  .we-chip {
+    min-height: 44px;
+  }
+
+  .we-featured-action {
+    min-height: 44px;
+    padding-inline: var(--we-space-2);
+  }
+
+  .we-emoji-tile {
+    padding-block: var(--we-space-2);
+  }
+}
+
 @keyframes we-orbit-spin {
   from {
     transform: rotate(0deg);
@@ -911,7 +935,6 @@ a {
   html {
     scroll-behavior: auto;
   }
-
   *,
   *::before,
   *::after {
