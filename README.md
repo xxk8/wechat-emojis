@@ -1,6 +1,6 @@
 # 微信表情包
 
-完整的微信内置表情资源库，包含 109 个 100×100 PNG 图片和类型安全的 TypeScript API，全部图片合计 690.3 KB。
+109 个微信内置表情的 PNG（100×100，透明背景）与类型安全的 TypeScript API，非官方整理，图片版权归腾讯公司所有。
 
 ## 在线浏览
 
@@ -36,7 +36,7 @@ npm run typecheck:scripts   # 校验 scripts/ 与 site/app.ts 的类型
 | 运行时 | `dist/index.js`、`dist/index.d.ts` |
 | 表情资源 | `assets/**/*.png`（109 张） |
 | 使用文档 | `docs/API.md`、`docs/NPM_USAGE.md`、`docs/REACT_USAGE.md` |
-| 包说明 | `README.md`、`package.json` |
+| 包说明 | `README.md`、`package.json`、`LICENSE` |
 
 **不会**包含 `site/`、`scripts/`、`src/`、`examples/`、`index.html`、`design.md`、`docs/TYPESCRIPT.md`、`tsconfig*`、`.github/`。白名单在 `package.json` 的 `files` 字段，已显式列到单个文件而不是通配目录。
 
@@ -56,11 +56,11 @@ npm install ../wechat-emojis --install-links   # 按 files 白名单打包后安
 npm pack ../wechat-emojis && npm install ./wechat-emojis-2.0.0.tgz
 ```
 
-从 npm registry 或 Git 地址安装不受此影响，实际内容仍是上表那 116 个文件。
+从 npm registry 或 Git 地址安装不受此影响，实际内容仍是上表那 117 个文件。
 
 ## 功能特性
 
-- 🎯 **完整收录** - 109 个微信内置表情，按类别组织
+- 🎯 **收录 109 个** - 微信内置表情的 PNG 整理，按类别组织
 - 🔧 **TypeScript 支持** - 完整类型定义，编译时错误检查
 - 🚀 **即插即用** - 支持 React、Vue、Angular 等主流框架
 - 📦 **多种导入方式** - ES6 模块、CommonJS、直接文件引用
@@ -235,7 +235,7 @@ function createEmojiPicker(containerId) {
 | `getEmojiInfo(name)` | `EmojiName` | `EmojiInfo \| null` | 获取表情详细信息 |
 | `getEmojisByCategory(category)` | `EmojiCategory` | `EmojiInfo[]` | 按类别获取表情列表 |
 | `getAllEmojis()` | - | `EmojiInfo[]` | 获取所有表情 |
-| `searchEmojis(keyword)` | `string` | `EmojiInfo[]` | 搜索包含关键词的表情 |
+| `searchEmojis(keyword)` | `string` | `EmojiInfo[]` | 按名字子串搜索表情 |
 | `hasEmoji(name)` | `string` | `boolean` | 检查表情是否存在 |
 | `getRandomEmoji(category?)` | `EmojiCategory?` | `EmojiInfo` | 随机获取表情 |
 
@@ -266,7 +266,7 @@ interface EmojiInfo {
 | 动物表情 | 4个 | 猪头、跳跳、发抖、转圈 |
 | 祝福表情 | 7个 | 庆祝、红包、烟花、爆竹 |
 | 其他表情 | 13个 | 爱心、啤酒、蛋糕、太阳、炸弹 |
-| **总计** | **109个** | 完整覆盖微信内置表情 |
+| **总计** | **109个** | 非官方整理的微信内置表情 PNG |
 
 ## 技术要求
 

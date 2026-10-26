@@ -1,9 +1,20 @@
 {
   "name": "wechat-emojis",
-  "version": "2.1.0",
-  "description": "完整的微信内置表情资源库，包含 109 个高清 PNG 图片和类型安全的 TypeScript API",
+  "version": "2.2.0",
+  "description": "109 个微信内置表情 PNG（100×100）与类型安全的 TypeScript API，非官方整理",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./assets/*": "./assets/*",
+    "./dist/*": "./dist/*"
+  },
   "files": [
     "dist/index.js",
     "dist/index.d.ts",
@@ -11,7 +22,8 @@
     "docs/API.md",
     "docs/NPM_USAGE.md",
     "docs/REACT_USAGE.md",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc",
@@ -19,7 +31,8 @@
     "typecheck:scripts": "tsc -p tsconfig.scripts.json",
     "verify:assets": "node scripts/verify-assets.ts",
     "typecheck:examples": "tsc --noEmit --target es2017 --module commonjs --moduleResolution node --strict examples/typescript/example.ts",
-    "test": "npm run build && npm run typecheck:scripts && npm run typecheck:examples && npm run verify:assets && npm run check:package",
+    "test:unit": "node --test test/*.test.mts",
+    "test": "npm run build && npm run typecheck:scripts && npm run typecheck:examples && npm run verify:assets && npm run check:package && npm run test:unit",
     "build:site": "node scripts/build-site.ts",
     "check:site": "node scripts/check-site.ts",
     "check:package": "node scripts/check-package.ts",

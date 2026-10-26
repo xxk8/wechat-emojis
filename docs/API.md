@@ -125,7 +125,7 @@ const emoji = getEmojiInfo('微笑');
 
 #### `getEmojisByCategory(category: EmojiCategory): EmojiInfo[]`
 
-按类别获取表情列表。
+按类别获取表情列表。每次调用返回新的数组与新的对象副本，修改返回值不会影响库内部数据。
 
 ```typescript
 const faceEmojis = getEmojisByCategory(EmojiCategory.FACE);
@@ -143,7 +143,7 @@ console.log(`总表情数量: ${allEmojis.length}`); // 109
 
 #### `searchEmojis(keyword: string): EmojiInfo[]`
 
-搜索包含关键词的表情。
+按名字子串搜索表情（只比对中文名，不含分类和英文名）。
 
 ```typescript
 const laughEmojis = searchEmojis('笑');

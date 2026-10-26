@@ -206,11 +206,16 @@ function checkHtml(entries: ReturnType<typeof readEmojiSource>): { tiles: number
   if (!html.includes('href="#wall"')) fail("Page is missing the primary wall link");
   if (html.includes("—")) fail("Page copy contains an em dash");
 
-  const forbidden = ["一站式", "赋能", "极致", "颠覆", "官方收录", "100% 官方"];
+  const forbidden = ["一站式", "赋能", "极致", "颠覆", "官方收录", "100% 官方", "完整覆盖"];
   for (const phrase of forbidden) {
     if (html.includes(phrase)) fail(`Page copy contains a forbidden claim: ${phrase}`);
   }
   if (!html.includes("非官方项目")) fail("Page is missing the unofficial caveat");
+  if (/关键词/.test(html)) {
+    fail("Page copy promises keyword search, but searchEmojis only matches the Chinese name");
+  }
+  if (!html.includes("MIT")) fail("Page does not state the code license");
+  if (!html.includes("版权归腾讯")) fail("Page is missing the artwork copyright caveat");
 
   return { tiles: tiles.length, totalKb };
 }

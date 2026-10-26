@@ -1,0 +1,34 @@
+MIT License
+
+Copyright (c) 2025 xxk8
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+例外：表情图片（assets/ 目录下的所有 PNG 文件）
+
+上面的 MIT 许可只覆盖代码（src/、dist/、scripts/、文档与示例），
+不覆盖 assets/ 目录下的表情图片。
+
+这些图片是微信内置表情的素材，版权归腾讯公司所有。本项目为非官方项目，
+与腾讯公司及微信团队无关，仅整理这些素材以便个人学习和非商业用途使用。
+任何商业用途请事先获得腾讯公司的授权，如有侵权请联系作者删除。
+
+详见 README.md 的版权声明一节。

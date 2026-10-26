@@ -71,7 +71,7 @@ git ls-files '*.js' '*.mjs' '*.cjs'                                → 空
 | `@types/node` | 脚本类型检查 |
 | `esbuild` | 编译 `site/app.ts` |
 
-两者都在 `devDependencies`，不影响发布包体积（`npm pack` 实测 116 个文件、758.2 kB，只含 `dist/`、`assets/`、文档与 README）。
+两者都在 `devDependencies`，不影响发布包体积（`npm pack` 实测 117 个文件、718.3 kB，只含 `dist/`、`assets/`、文档、`LICENSE` 与 README）。
 
 ## 新增配置
 

@@ -185,27 +185,59 @@ const EMOJI_DATA: Record<EmojiName, EmojiInfo> = {
 
 /**
  * 获取所有表情数据的辅助函数
+ * 返回新数组与新的对象副本，调用方修改不会污染库内部状态
  */
 function getAllEmojiData(): EmojiInfo[] {
   const result: EmojiInfo[] = [];
   for (const key in EMOJI_DATA) {
-    if (EMOJI_DATA.hasOwnProperty(key)) {
-      result.push(EMOJI_DATA[key as EmojiName]);
+    if (Object.prototype.hasOwnProperty.call(EMOJI_DATA, key)) {
+      result.push(copyEmojiInfo(EMOJI_DATA[key as EmojiName]));
     }
   }
   return result;
 }
 
 /**
- * 按类别分组的表情数据
+ * 复制一条表情信息，避免把内部对象引用交给调用方
  */
-export const EMOJI_CATEGORIES = {
-  [EmojiCategory.FACE]: getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.FACE),
-  [EmojiCategory.GESTURE]: getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.GESTURE),
-  [EmojiCategory.ANIMAL]: getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.ANIMAL),
-  [EmojiCategory.BLESSING]: getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.BLESSING),
-  [EmojiCategory.OTHER]: getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.OTHER)
-} as const;
+function copyEmojiInfo(emoji: EmojiInfo): EmojiInfo {
+  const copy: EmojiInfo = {
+    name: emoji.name,
+    category: emoji.category,
+    path: emoji.path
+  };
+  if (emoji.englishName !== undefined) {
+    copy.englishName = emoji.englishName;
+  }
+  return copy;
+}
+
+for (const key of Object.keys(EMOJI_DATA) as EmojiName[]) {
+  Object.freeze(EMOJI_DATA[key]);
+}
+
+/**
+ * 按类别分组的内部数据，冻结后不再对外暴露引用
+ */
+const CATEGORY_DATA: Record<EmojiCategory, readonly EmojiInfo[]> = {
+  [EmojiCategory.FACE]: Object.freeze(getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.FACE)),
+  [EmojiCategory.GESTURE]: Object.freeze(getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.GESTURE)),
+  [EmojiCategory.ANIMAL]: Object.freeze(getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.ANIMAL)),
+  [EmojiCategory.BLESSING]: Object.freeze(getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.BLESSING)),
+  [EmojiCategory.OTHER]: Object.freeze(getAllEmojiData().filter(emoji => emoji.category === EmojiCategory.OTHER))
+};
+
+/**
+ * 按类别分组的表情数据
+ * 每次读取返回新的数组（里面也是对象副本），修改它不会影响库的内部数据
+ */
+export const EMOJI_CATEGORIES: Record<EmojiCategory, EmojiInfo[]> = {
+  get [EmojiCategory.FACE]() { return CATEGORY_DATA[EmojiCategory.FACE].map(copyEmojiInfo); },
+  get [EmojiCategory.GESTURE]() { return CATEGORY_DATA[EmojiCategory.GESTURE].map(copyEmojiInfo); },
+  get [EmojiCategory.ANIMAL]() { return CATEGORY_DATA[EmojiCategory.ANIMAL].map(copyEmojiInfo); },
+  get [EmojiCategory.BLESSING]() { return CATEGORY_DATA[EmojiCategory.BLESSING].map(copyEmojiInfo); },
+  get [EmojiCategory.OTHER]() { return CATEGORY_DATA[EmojiCategory.OTHER].map(copyEmojiInfo); }
+};
 
 /**
  * 获取表情图片路径
@@ -256,7 +288,8 @@ export function getEmojiUrl(name: EmojiName): string | null {
  * ```
  */
 export function getEmojiInfo(name: EmojiName): EmojiInfo | null {
-  return EMOJI_DATA[name] || null;
+  const emoji = EMOJI_DATA[name];
+  return emoji ? copyEmojiInfo(emoji) : null;
 }
 
 /**
@@ -270,7 +303,7 @@ export function getEmojiInfo(name: EmojiName): EmojiInfo | null {
  * ```
  */
 export function getEmojisByCategory(category: EmojiCategory): EmojiInfo[] {
-  return EMOJI_CATEGORIES[category];
+  return CATEGORY_DATA[category].map(copyEmojiInfo);
 }
 
 /**
@@ -336,7 +369,7 @@ export function getEmojiNames(category?: EmojiCategory): string[] {
   }
   const names: string[] = [];
   for (const key in EMOJI_DATA) {
-    if (EMOJI_DATA.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(EMOJI_DATA, key)) {
       names.push(key);
     }
   }

@@ -52,6 +52,21 @@ function packList(): { dir: string; files: string[] } {
   return { dir, files };
 }
 
+function listExportTargets(
+  exportsField: Record<string, string | Record<string, string>> | undefined
+): string[] {
+  if (!exportsField) return [];
+  const targets: string[] = [];
+  for (const value of Object.values(exportsField)) {
+    if (typeof value === "string") {
+      targets.push(value);
+      continue;
+    }
+    for (const nested of Object.values(value)) targets.push(nested);
+  }
+  return targets;
+}
+
 function main(): void {
   const { dir, files } = packList();
   try {
@@ -77,6 +92,7 @@ function main(): void {
 
     if (!files.includes("dist/index.js")) problems.push("missing dist/index.js");
     if (!files.includes("dist/index.d.ts")) problems.push("missing dist/index.d.ts");
+    if (!files.includes("LICENSE")) problems.push("missing LICENSE in package");
 
     const readme = readFileSync(join(ROOT, "README.md"), "utf8");
     const localLinks = [...readme.matchAll(/\]\((\.\/[^)\s]+)\)/g)]
@@ -93,9 +109,28 @@ function main(): void {
       main: string;
       types: string;
       files: string[];
+      license: string;
+      exports?: Record<string, string | Record<string, string>>;
     };
+    if (pkg.license !== "MIT") problems.push(`license field should be MIT, found ${pkg.license}`);
     if (!files.includes(pkg.main)) problems.push(`main ${pkg.main} is not published`);
     if (!files.includes(pkg.types)) problems.push(`types ${pkg.types} is not published`);
+
+    const exported = listExportTargets(pkg.exports);
+    if (exported.length === 0) problems.push("package.json has no exports map");
+    for (const target of exported) {
+      if (!target.includes("*")) {
+        const relativePath = target.replace(/^\.\//, "");
+        if (!files.includes(relativePath)) {
+          problems.push(`exports target ${target} is not published`);
+        }
+      } else {
+        const patternRoot = target.replace(/^(\.\/)?/, "").replace(/\*.*$/, "");
+        if (!files.some((file) => file.startsWith(patternRoot))) {
+          problems.push(`exports pattern ${target} matches nothing in the package`);
+        }
+      }
+    }
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
